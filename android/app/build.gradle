@@ -47,10 +47,34 @@ android {
         applicationId "com.example.club_user"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationId "com.example.club_user"
+            versionCode 1
+            versionName "1.0.0"
+            resValue "string", "app_name", "Club Dev"
+        }
+
+        prod {
+            dimension "app"
+            applicationId "com.example.club_user"
+            versionCode 1
+            versionName "1.0.0"
+            resValue "string", "app_name", "Club Prod"
+        }
     }
 
     buildTypes {
@@ -66,6 +90,7 @@ flutter {
     source '../..'
 }
 
+apply plugin: 'com.google.gms.google-services'
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
