@@ -1,6 +1,7 @@
-import 'dart:math';
 
 import 'package:club_model/club_model.dart';
+import 'package:club_user/backend/authentication/authentication_controller.dart';
+import 'package:club_user/backend/authentication/authentication_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../backend/navigation/navigation_controller.dart';
@@ -18,18 +19,32 @@ class _SplashScreenState extends State<SplashScreen> {
   late ThemeData themeData;
 
   Future<void> checkLogin() async {
-    await Future.delayed(const Duration(milliseconds: 600));
-
     NavigationController.isFirst = false;
-    if (context.mounted) {
-      if (Random().nextBool()) {
+
+    AuthenticationProvider authenticationProvider = context.read<AuthenticationProvider>();
+    AuthenticationController authenticationController = AuthenticationController(authenticationProvider: authenticationProvider);
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    /*authenticationController.logout(isNavigateToLogin: true);
+    return;*/
+
+    bool isUserLoggedIn = await authenticationController.isUserLoggedIn();
+    MyPrint.printOnConsole("isUserLoggedIn:$isUserLoggedIn");
+
+    if(isUserLoggedIn) {
+      // await MyPatientController().getPatientsDataForMainPage();
+      if(context.checkMounted() && context.mounted) {
         NavigationController.navigateToHomeScreen(
           navigationOperationParameters: NavigationOperationParameters(
             context: context,
             navigationType: NavigationType.pushNamedAndRemoveUntil,
           ),
         );
-      } else {
+      }
+    }
+    else {
+      if(context.checkMounted() && context.mounted) {
         NavigationController.navigateToLoginScreen(
           navigationOperationParameters: NavigationOperationParameters(
             context: context,
