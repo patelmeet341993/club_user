@@ -1,4 +1,6 @@
+import 'package:club_model/backend/user/user_controller.dart';
 import 'package:club_model/club_model.dart';
+import 'package:club_model/models/user/data_model/user_model.dart';
 import 'package:club_user/backend/authentication/authentication_repository.dart';
 import 'package:club_user/backend/navigation/navigation_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -44,6 +46,46 @@ class AuthenticationController {
       logout();
       return false;
     }
+  }
+
+  Future<bool> checkUserWithIdExistOrNotAndIfNotExistThenCreate({
+    required String userId,
+  }) async {
+    String tag = MyUtils.getNewId();
+    MyPrint.printOnConsole("AuthenticationController().checkUserWithIdExistOrNotAndIfNotExistThenCreate() called with userId:'$userId'", tag: tag);
+
+    bool isUserExist = false;
+
+    if(userId.isEmpty) return isUserExist;
+
+    UserController userController = UserController();
+
+    try {
+      UserModel? userModel = await userController.userRepository.getUserModelFromId(userId: userId);
+      MyPrint.printOnConsole("userModel:'$userModel'", tag: tag);
+
+      if(userModel != null) {
+        isUserExist = true;
+      }
+      else {
+        UserModel createdUserModel = UserModel(
+          id: userId,
+          mobileNumber: authenticationProvider.mobileNumber.get(),
+        );
+        bool isCreated = await userController.createNewUser(userModel: createdUserModel);
+        MyPrint.printOnConsole("isUserCreated:'$isCreated'", tag: tag);
+
+        if(isCreated) {
+          authenticationProvider.userModel.set(value: createdUserModel, isNotify: false);
+        }
+      }
+    }
+    catch(e, s) {
+      MyPrint.printOnConsole("Error in AuthenticationController().checkUserWithIdExistOrNotAndIfNotExistThenCreate():'$e'", tag: tag);
+      MyPrint.printOnConsole(s, tag: tag);
+    }
+
+    return isUserExist;
   }
 
   Future<bool> logout({bool isNavigateToLogin = false}) async {
