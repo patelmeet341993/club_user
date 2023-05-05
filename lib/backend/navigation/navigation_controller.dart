@@ -6,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../views/authentication/screens/login_screen.dart';
+import '../../views/authentication/screens/otp_screen.dart';
 import '../../views/common/screens/splashscreen.dart';
 import '../../views/homescreen/screens/homescreen.dart';
+import 'navigation_arguments.dart';
 
 class NavigationController {
   static NavigationController? _instance;
@@ -23,8 +25,6 @@ class NavigationController {
   NavigationController._();
 
   static final GlobalKey<NavigatorState> mainScreenNavigator = GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> pharmaDashboardScreenNavigator = GlobalKey<NavigatorState>();
-  static GlobalKey<NavigatorState> historyScreenNavigator = GlobalKey<NavigatorState>();
 
   static bool isUserProfileTabInitialized = false;
 
@@ -82,6 +82,10 @@ class NavigationController {
         page = parseLoginScreen(settings: settings);
         break;
       }
+      case OtpScreen.routeName: {
+        page = parseOtpScreen(settings: settings);
+        break;
+      }
       case HomeScreen.routeName: {
         page = parseHomeScreen(settings: settings);
         break;
@@ -105,14 +109,32 @@ class NavigationController {
     return const LoginScreen();
   }
 
+  static Widget? parseOtpScreen({required RouteSettings settings}) {
+    dynamic argument = settings.arguments;
+    if(argument is OtpScreenNavigationArguments) {
+      return OtpScreen(mobile: argument.mobile);
+    }
+    else {
+      return null;
+    }
+  }
+
   static Widget? parseHomeScreen({required RouteSettings settings}) {
     return const HomeScreen();
   }
   //endregion
 
+
   static Future<dynamic> navigateToLoginScreen({required NavigationOperationParameters navigationOperationParameters}) {
     return NavigationOperation.navigate(navigationOperationParameters: navigationOperationParameters.copyWith(
       routeName: LoginScreen.routeName,
+    ));
+  }
+
+  static Future<dynamic> navigateToOtpScreen({required NavigationOperationParameters navigationOperationParameters, required OtpScreenNavigationArguments arguments}) {
+    return NavigationOperation.navigate(navigationOperationParameters: navigationOperationParameters.copyWith(
+      routeName: OtpScreen.routeName,
+      arguments: arguments,
     ));
   }
 

@@ -12,10 +12,18 @@ dependencies:
   flutter:
     sdk: flutter
 
+  ########
+  # Core #
+  ########
   club_model:
     git:
       url: https://github.com/patelmeet341993/club_model
-      ref: master
+      ref: dishant
+
+  #######
+  # UI #
+  #######
+  circular_countdown_timer: ^0.2.3
 
 dev_dependencies:
   flutter_test:
