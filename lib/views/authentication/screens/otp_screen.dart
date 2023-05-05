@@ -129,7 +129,7 @@ class _OtpScreenState extends State<OtpScreen> with MySafeState {
 
         //startTimer();
 
-        if(_otpController.text.isEmpty) {
+        if (_otpController.text.isEmpty) {
           _otpFocusNode.requestFocus();
         }
 
@@ -211,13 +211,18 @@ class _OtpScreenState extends State<OtpScreen> with MySafeState {
 
   Future<void> onSuccess(User user) async {
     MyPrint.printOnConsole("user.phoneNumber:${user.phoneNumber}");
-    if ((user.phoneNumber ?? "").isNotEmpty) {
+    if (user.phoneNumber.checkNotEmpty) {
       authenticationProvider.setAuthenticationDataFromFirebaseUser(
         firebaseUser: user,
         isNotify: false,
       );
-      // await MyPatientController().getPatientsDataForMainPage();
-      if(context.checkMounted() && context.mounted) {
+
+      bool isUserExist = await authenticationController.checkUserWithIdExistOrNotAndIfNotExistThenCreate(
+        userId: authenticationProvider.userId.get(),
+      );
+      MyPrint.printOnConsole("isUserExist:$isUserExist");
+
+      if (context.checkMounted() && context.mounted) {
         NavigationController.navigateToHomeScreen(
           navigationOperationParameters: NavigationOperationParameters(
             context: context,

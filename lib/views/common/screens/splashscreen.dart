@@ -33,7 +33,9 @@ class _SplashScreenState extends State<SplashScreen> {
     MyPrint.printOnConsole("isUserLoggedIn:$isUserLoggedIn");
 
     if(isUserLoggedIn) {
-      // await MyPatientController().getPatientsDataForMainPage();
+      bool isExist = await authenticationController.checkUserWithIdExistOrNotAndIfNotExistThenCreate(userId: authenticationProvider.userId.get());
+      MyPrint.printOnConsole("isExist:$isExist");
+
       if(context.checkMounted() && context.mounted) {
         NavigationController.navigateToHomeScreen(
           navigationOperationParameters: NavigationOperationParameters(
