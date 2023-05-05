@@ -118,7 +118,9 @@ class _LoginScreenState extends State<LoginScreen> with MySafeState {
       margin: const EdgeInsets.only(bottom: 34),
       width: 100,
       height: 100,
-      child: Image.asset("assets/logo2.png"),
+      child: Image.asset(
+        "assets/logo2.png",
+      ),
     );
   }
 
@@ -189,21 +191,15 @@ class _LoginScreenState extends State<LoginScreen> with MySafeState {
               fontWeight: FontWeight.w500,
             ),
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8.0),
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               borderSide: BorderSide(color: themeData.colorScheme.onBackground),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8.0),
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               borderSide: BorderSide(color: themeData.colorScheme.onBackground),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8.0),
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               borderSide: BorderSide(color: themeData.colorScheme.onBackground),
             ),
             filled: true,
@@ -293,13 +289,14 @@ class _LoginScreenState extends State<LoginScreen> with MySafeState {
                   color: themeData.colorScheme.primary,
                   // button color
                   child: SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: themeData.colorScheme.onPrimary,
-                        size: 18,
-                      )),
+                    width: 30,
+                    height: 30,
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: themeData.colorScheme.onPrimary,
+                      size: 18,
+                    ),
+                  ),
                 ),
               ),
             ),

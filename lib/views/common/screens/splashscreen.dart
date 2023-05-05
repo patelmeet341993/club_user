@@ -19,6 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   late ThemeData themeData;
 
   Future<void> checkLogin() async {
+    String tag = MyUtils.getNewId();
+    MyPrint.printOnConsole("SplashScreen().checkLogin() called", tag: tag);
+
     NavigationController.isFirst = false;
 
     AuthenticationProvider authenticationProvider = context.read<AuthenticationProvider>();
@@ -30,11 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return;*/
 
     bool isUserLoggedIn = await authenticationController.isUserLoggedIn();
-    MyPrint.printOnConsole("isUserLoggedIn:$isUserLoggedIn");
+    MyPrint.printOnConsole("isUserLoggedIn:$isUserLoggedIn", tag: tag);
 
     if(isUserLoggedIn) {
       bool isExist = await authenticationController.checkUserWithIdExistOrNotAndIfNotExistThenCreate(userId: authenticationProvider.userId.get());
-      MyPrint.printOnConsole("isExist:$isExist");
+      MyPrint.printOnConsole("isExist:$isExist", tag: tag);
 
       if(context.checkMounted() && context.mounted) {
         NavigationController.navigateToHomeScreen(
