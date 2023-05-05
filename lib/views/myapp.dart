@@ -1,4 +1,5 @@
 import 'package:club_model/club_model.dart';
+import 'package:club_user/backend/authentication/authentication_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../backend/navigation/navigation_controller.dart';
@@ -13,6 +14,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AppThemeProvider>(create: (_) => AppThemeProvider(), lazy: false),
+        ChangeNotifierProvider<AuthenticationProvider>(create: (_) => AuthenticationProvider(), lazy: false),
+        ChangeNotifierProvider<ConnectionProvider>(create: (_) => ConnectionProvider(), lazy: false),
       ],
       child: MainApp(),
     );

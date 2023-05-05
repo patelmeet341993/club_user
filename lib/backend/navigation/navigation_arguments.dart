@@ -1,13 +1,9 @@
+import 'package:club_model/backend/navigation/navigation_arguments.dart';
 
+class OtpScreenNavigationArguments extends NavigationArguments {
+  final String mobile;
 
-/*
-class LoginScreenNavigationArguments extends NavigationArguments{
-  final AdminUserProvider adminUserProvider;
-  final String adminAppType;
-
-  const LoginScreenNavigationArguments({
-    required this.adminUserProvider,
-    required this.adminAppType,
+  const OtpScreenNavigationArguments({
+    required this.mobile,
   });
 }
-*/
