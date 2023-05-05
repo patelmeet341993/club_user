@@ -66,6 +66,8 @@ class AuthenticationController {
 
       if(userModel != null) {
         isUserExist = true;
+
+        authenticationProvider.userModel.set(value: userModel, isNotify: false);
       }
       else {
         UserModel createdUserModel = UserModel(
