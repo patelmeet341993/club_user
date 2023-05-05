@@ -1,3 +1,6 @@
+import 'package:club_model/club_model.dart';
+import 'package:club_user/backend/authentication/authentication_controller.dart';
+import 'package:club_user/backend/authentication/authentication_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/models/home_screen_component_model.dart';
@@ -27,13 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     themeData = Theme.of(context);
 
-    return mainBody();
-  }
-
-  Widget mainBody(){
-    return const Center(
-      child: Text(
-        "Home Screen"
+    return Container(
+      color: themeData.colorScheme.background,
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  AuthenticationController(authenticationProvider: context.read<AuthenticationProvider>()).logout(isNavigateToLogin: true);
+                },
+                child: const Text("Logout"),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
