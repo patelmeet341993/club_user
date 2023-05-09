@@ -1,4 +1,5 @@
 import 'package:club_model/club_model.dart';
+import 'package:club_user/views/products/screens/all_products_list_screen.dart';
 import 'package:club_user/views/profile/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   List<HomeScreenComponentModel> components = [];
 
-  Widget? homeWidget, favouriteWidget,profileWidget,wallpaperListWidget;
+  Widget? homeWidget, favouriteWidget, profileWidget, wallpaperListWidget;
 
   //region Tab Handling
   _handleTabSelection() {
@@ -45,25 +46,26 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     double diff = aniValue - _currentIndex;
 
     //MyPrint.printOnConsole("Current Before:$_currentIndex");
-    if (aniValue - _currentIndex > 0.5) _currentIndex++;
+    if (aniValue - _currentIndex > 0.5)
+      _currentIndex++;
     else if (aniValue - _currentIndex < -0.5) _currentIndex--;
     //MyPrint.printOnConsole("Current After:$_currentIndex");
 
     //if(_currentIndex == 1 && Provider.of<ProductProvider>(context, listen: false).searchedProductsList == null) ProductController().getProducts(context, true, withnotifying: false);
 
     //For Direct Tap
-    if(diff != 1 && diff != -1 && diff != 2 && diff != -2 && diff != 3 && diff != -3) {
+    if (diff != 1 && diff != -1 && diff != 2 && diff != -2 && diff != 3 && diff != -3) {
       mySetState();
     }
-
   }
+
   //endregion
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 4, vsync: this,initialIndex: 0);
+    _tabController = TabController(length: 4, vsync: this, initialIndex: 0);
     _tabController.addListener(_handleTabSelection);
     _tabController.animation?.addListener(_handleTabSelectionInAnimation);
   }
@@ -84,12 +86,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               bottomNavigationBar: getBottomBar(homeScreenProvider),
               body: TabBarView(
                 controller: _tabController,
-                children: <Widget>[
-                  getBottlesListScreen(),
-                  getMyBottlesListScreen(),
-                  getClubsListScreen(),
-                  getUserProfile()
-                ],
+                children: <Widget>[getBottlesListScreen(), getMyBottlesListScreen(), getClubsListScreen(), getUserProfile()],
               ),
             ),
           ),
@@ -133,9 +130,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ],
           ),
           child: TabBar(
-            onTap: (int index) {
-
-            },
+            onTap: (int index) {},
             controller: _tabController,
             indicator: const BoxDecoration(),
             indicatorSize: TabBarIndicatorSize.label,
@@ -149,22 +144,34 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
             tabs: const <Widget>[
               Tab(
-                icon: Icon(MdiIcons.home, size: 20,),
+                icon: Icon(
+                  MdiIcons.home,
+                  size: 20,
+                ),
                 iconMargin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 text: "Bottles",
               ),
               Tab(
-                icon: Icon(MdiIcons.magnify, size: 20,),
+                icon: Icon(
+                  MdiIcons.magnify,
+                  size: 20,
+                ),
                 iconMargin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 text: "My Bottles",
               ),
               Tab(
-                icon: Icon(MdiIcons.heartOutline, size: 20,),
+                icon: Icon(
+                  MdiIcons.heartOutline,
+                  size: 20,
+                ),
                 iconMargin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 text: "Clubs",
               ),
               Tab(
-                icon: Icon(MdiIcons.account, size: 20,),
+                icon: Icon(
+                  MdiIcons.account,
+                  size: 20,
+                ),
                 iconMargin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 text: "Profile",
               ),
@@ -179,25 +186,35 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(iconData, size: 20, color: themeData.colorScheme.primary,),
+        Icon(
+          iconData,
+          size: 20,
+          color: themeData.colorScheme.primary,
+        ),
         index != _currentIndex
             ? Text(
-          text ?? "",
-          style: themeData.textTheme.bodySmall?.copyWith(
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            color: themeData.colorScheme.primary,
-          ),
-        )
+                text ?? "",
+                style: themeData.textTheme.bodySmall?.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: themeData.colorScheme.primary,
+                ),
+              )
             : const SizedBox.shrink(),
       ],
     );
   }
+
   //endregion
 
   Widget getBottlesListScreen() {
-    homeWidget ??= const Center(
-      child: Text("Bottles List Screen"),
+    homeWidget ??= Center(
+      child: GestureDetector(
+        onTap: () {
+
+        },
+        child: const AllProductsListScreen(),
+      ),
     );
 
     return homeWidget!;
