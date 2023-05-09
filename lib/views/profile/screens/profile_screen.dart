@@ -27,9 +27,6 @@ class _ProfileScreenState extends State<ProfileScreen> with MySafeState {
         return SafeArea(
           child: ModalProgressHUD(
             inAsyncCall: isLoading,
-            progressIndicator: SpinKitFadingCircle(
-              color: themeData.colorScheme.primary,
-            ),
             child: Scaffold(
               body: ListView(
                 padding: const EdgeInsets.all(24),
@@ -129,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> with MySafeState {
                     return child;
                   }
 
-                  return SpinKitCircle(color: themeData.primaryColor);
+                  return const LoadingWidget();
                 },
               ),
             ),

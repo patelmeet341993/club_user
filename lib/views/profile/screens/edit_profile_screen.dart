@@ -361,9 +361,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with MySafeState 
                   //borderRadius: BorderRadius.all(Radius.circular(16)),
                   child: CachedNetworkImage(
                     imageUrl: profileImageUrl!,
-                    placeholder: (context, url) => SpinKitCircle(
-                      color: themeData.colorScheme.primary,
-                    ),
+                    placeholder: (context, url) => const LoadingWidget(),
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
