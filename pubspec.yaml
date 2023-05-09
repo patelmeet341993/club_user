@@ -25,6 +25,16 @@ dependencies:
   #######
   circular_countdown_timer: ^0.2.3
 
+  #########
+  # Utils #
+  #########
+  path_provider: ^2.0.15
+
+  ####################
+  # Image Operations #
+  ####################
+  flutter_image_compress: ^2.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
