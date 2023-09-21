@@ -7,7 +7,8 @@ class MySharePreferenceKeys {
 }
 
 class MyAppConstants {
-
+  static const int productsDocumentLimitForPagination = 10;
+  static const int productsRefreshLimitForPagination = 3;
 }
 
 class AppUIConfiguration {

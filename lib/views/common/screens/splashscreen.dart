@@ -90,11 +90,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2), borderRadius: BorderRadius.circular(5)),
-                      child: Icon(Icons.vaccines, color: themeData.primaryColor, size: 80),
+                      child: Icon(Icons.water, color: themeData.primaryColor, size: 80),
                     ),
                     const SizedBox(height: 18),
                     const Text(
-                      "Hospital Management System",
+                      "Club App",
                       style: TextStyle(
                         fontSize: 25,
                       ),

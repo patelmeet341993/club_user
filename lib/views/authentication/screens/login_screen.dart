@@ -65,22 +65,6 @@ class _LoginScreenState extends State<LoginScreen> with MySafeState {
 
     return ModalProgressHUD(
       inAsyncCall: isLoading,
-      progressIndicator: Container(
-        padding: const EdgeInsets.all(100),
-        child: Center(
-          child: Container(
-            height: 90,
-            width: 90,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-            child: SpinKitFadingCircle(
-              color: themeData.colorScheme.primary,
-            ),
-          ),
-        ),
-      ),
       child: Scaffold(
         backgroundColor: themeData.colorScheme.background,
         body: Container(

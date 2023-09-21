@@ -9,6 +9,7 @@ import '../../views/authentication/screens/login_screen.dart';
 import '../../views/authentication/screens/otp_screen.dart';
 import '../../views/common/screens/splashscreen.dart';
 import '../../views/homescreen/screens/homescreen.dart';
+import '../../views/profile/screens/edit_profile_screen.dart';
 import 'navigation_arguments.dart';
 
 class NavigationController {
@@ -90,6 +91,10 @@ class NavigationController {
         page = parseHomeScreen(settings: settings);
         break;
       }
+      case EditProfileScreen.routeName: {
+        page = parseEditProfileScreen(settings: settings);
+        break;
+      }
     }
 
     if (page != null) {
@@ -122,9 +127,20 @@ class NavigationController {
   static Widget? parseHomeScreen({required RouteSettings settings}) {
     return const HomeScreen();
   }
+
+  static Widget? parseEditProfileScreen({required RouteSettings settings}) {
+    dynamic argument = settings.arguments;
+    if(argument is EditProfileScreenNavigationArguments) {
+      return EditProfileScreen(arguments: argument);
+    }
+    else {
+      return null;
+    }
+  }
   //endregion
 
 
+  //region Navigation Methods
   static Future<dynamic> navigateToLoginScreen({required NavigationOperationParameters navigationOperationParameters}) {
     return NavigationOperation.navigate(navigationOperationParameters: navigationOperationParameters.copyWith(
       routeName: LoginScreen.routeName,
@@ -143,4 +159,12 @@ class NavigationController {
       routeName: HomeScreen.routeName,
     ));
   }
+
+  static Future<dynamic> navigateToEditProfileScreen({required NavigationOperationParameters navigationOperationParameters, required EditProfileScreenNavigationArguments arguments}) {
+    return NavigationOperation.navigate(navigationOperationParameters: navigationOperationParameters.copyWith(
+      routeName: EditProfileScreen.routeName,
+      arguments: arguments,
+    ));
+  }
+  //endregion
 }

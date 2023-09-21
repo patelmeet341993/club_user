@@ -1,7 +1,9 @@
 import 'package:club_model/club_model.dart';
 import 'package:club_user/backend/authentication/authentication_provider.dart';
+import 'package:club_user/backend/product/product_provider.dart';
 import 'package:flutter/material.dart';
 
+import '../backend/home_screen/home_screen_provider.dart';
 import '../backend/navigation/navigation_controller.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppThemeProvider>(create: (_) => AppThemeProvider(), lazy: false),
         ChangeNotifierProvider<AuthenticationProvider>(create: (_) => AuthenticationProvider(), lazy: false),
         ChangeNotifierProvider<ConnectionProvider>(create: (_) => ConnectionProvider(), lazy: false),
+        ChangeNotifierProvider<HomeScreenProvider>(create: (_) => HomeScreenProvider(), lazy: false),
+        ChangeNotifierProvider<ProductProvider>(create: (_) => ProductProvider(), lazy: false),
       ],
       child: MainApp(),
     );
