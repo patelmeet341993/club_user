@@ -1,11 +1,11 @@
 import 'package:club_model/backend/user/user_controller.dart';
 import 'package:club_model/club_model.dart';
-import 'package:club_model/models/user/data_model/user_model.dart';
 import 'package:club_user/backend/authentication/authentication_repository.dart';
 import 'package:club_user/backend/navigation/navigation_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../views/common/components/MyCupertinoAlertDialogWidget.dart';
 import 'authentication_provider.dart';
 
 class AuthenticationController {
@@ -90,10 +90,35 @@ class AuthenticationController {
     return isUserExist;
   }
 
-  Future<bool> logout({bool isNavigateToLogin = false}) async {
+  Future<bool> logout({bool isShowConfirmationDialog = false, bool isNavigateToLogin = false}) async {
     BuildContext? context = NavigationController.mainScreenNavigator.currentContext;
 
-    bool isLoggedOut = false;
+    bool? isLoggedOut;
+    if(context != null && isShowConfirmationDialog) {
+      isLoggedOut = await showDialog(
+          context: context,
+          builder: (context) {
+            return MyCupertinoAlertDialogWidget(
+              title: "Logout",
+              description: "Are you sure want to logout?",
+              neagtiveText: "No",
+              positiveText: "Yes",
+              negativeCallback: () => Navigator.pop(context, false),
+              positiviCallback: () async {
+                Navigator.pop(context, true);
+              },
+            );
+          }
+      );
+    }
+    else {
+      isLoggedOut = true;
+    }
+    MyPrint.printOnConsole("IsLoggedOut:$isLoggedOut");
+
+    if(isLoggedOut != true) {
+      return false;
+    }
 
     AuthenticationProvider provider = authenticationProvider;
     provider.resetData(isNotify: false);
@@ -116,7 +141,7 @@ class AuthenticationController {
 
     isLoggedOut = true;
 
-    if(isNavigateToLogin && context != null) {
+    if(isNavigateToLogin && context != null && context.checkMounted() && context.mounted) {
       NavigationController.navigateToLoginScreen(navigationOperationParameters: NavigationOperationParameters(
         context: context,
         navigationType: NavigationType.pushNamedAndRemoveUntil,
